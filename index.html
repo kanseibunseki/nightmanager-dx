@@ -16,6 +16,7 @@
         .gradient-text {
             background: linear-gradient(90deg, #C084FC, #FBBF24);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .section-glow::before {
@@ -63,8 +64,41 @@
             padding: 10px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
+        @media (max-width: 768px) {
+            .phone-mockup {
+                border: 4px solid #333;
+                border-radius: 20px;
+                padding: 5px;
+            }
+        }
         .phone-mockup img {
             border-radius: 30px;
+        }
+        @media (max-width: 768px) {
+            .phone-mockup img {
+                border-radius: 15px;
+            }
+        }
+        
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        .hamburger-line {
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
         }
     </style>
 </head>
@@ -79,20 +113,40 @@
                 <a href="#benefits" class="nav-link">導入効果</a>
                 <a href="#poc" class="nav-link">お試し導入</a>
             </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden hamburger" id="mobile-menu-button">
+                <div class="space-y-2">
+                    <span class="block w-8 h-0.5 bg-white hamburger-line"></span>
+                    <span class="block w-8 h-0.5 bg-white hamburger-line"></span>
+                    <span class="block w-8 h-0.5 bg-white hamburger-line"></span>
+                </div>
+            </button>
         </div>
     </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-black/95 z-40 mobile-menu md:hidden" id="mobile-menu">
+        <div class="flex flex-col justify-center items-center h-full">
+            <nav class="text-center space-y-8">
+                <a href="#features" class="block text-2xl text-white hover:text-purple-400 transition mobile-menu-link">機能紹介</a>
+                <a href="#benefits" class="block text-2xl text-white hover:text-purple-400 transition mobile-menu-link">導入効果</a>
+                <a href="#poc" class="block text-2xl text-white hover:text-purple-400 transition mobile-menu-link">お試し導入</a>
+            </nav>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <header class="h-screen min-h-[700px] flex flex-col justify-center items-center text-center relative overflow-hidden section-glow">
         <div class="container mx-auto px-6">
-            <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-4 animated-item">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 animated-item">
                 店舗運営を、次のステージへ。
             </h1>
-            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto animated-item" style="transition-delay: 150ms;">
+            <p class="text-base sm:text-lg md:text-xl text-gray-400 max-w-3xl mx-auto animated-item" style="transition-delay: 150ms;">
                 非効率な業務をなくし、「人」にしかできないおもてなしの時間を創出します。<br/>黒服の働き方改革で、売上と顧客満足度を最大化する。
             </p>
             <div class="mt-12 animated-item" style="transition-delay: 300ms;">
-                <a href="#features" class="bg-purple-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-105">
+                <a href="#features" class="bg-purple-600 text-white font-bold py-3 px-6 sm:px-8 rounded-full text-base sm:text-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-105">
                     機能を見る
                 </a>
             </div>
@@ -101,11 +155,11 @@
 
     <main>
         <!-- Problem Section -->
-        <section class="py-24 bg-[#101010]">
+        <section class="py-16 md:py-20 lg:py-24 bg-[#101010]">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 animated-item">日々の店舗運営、<br class="md:hidden" />こんな<span class="text-red-400">「お悩み」</span>ありませんか？</h2>
-                <p class="text-lg text-gray-400 mb-16 animated-item" style="transition-delay: 150ms;">一つでも当てはまれば、それは大きな機会損失のサインかもしれません。</p>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 animated-item">日々の店舗運営、<br class="md:hidden" />こんな<span class="text-red-400">「お悩み」</span>ありませんか？</h2>
+                <p class="text-sm sm:text-base md:text-lg text-gray-400 mb-8 sm:mb-12 md:mb-16 animated-item" style="transition-delay: 150ms;">一つでも当てはまれば、それは大きな機会損失のサインかもしれません。</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-left">
                     <div class="bg-gray-900/50 p-6 rounded-2xl border border-gray-800 animated-item" style="transition-delay: 200ms;">
                         <h3 class="font-bold mb-2 text-lg text-purple-400">❌ 無駄な動き</h3>
                         <p class="text-gray-300 text-sm">裏のホワイトボードまで走って確認。お客様を待たせ、貴重な接客時間を失っています。</p>
@@ -127,10 +181,10 @@
         </section>
 
         <!-- Features Section -->
-        <section id="features" class="py-24 relative section-glow">
+        <section id="features" class="py-16 md:py-20 lg:py-24 relative section-glow">
             <div class="container mx-auto px-6">
                 <div class="text-center max-w-3xl mx-auto">
-                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-16 animated-item">そのお悩みを<span class="gradient-text">スマートに解決</span></h2>
+                     <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8 sm:mb-12 md:mb-16 animated-item">そのお悩みを<span class="gradient-text">スマートに解決</span></h2>
                 </div>
                 
                 <div class="space-y-24">
@@ -138,8 +192,8 @@
                     <div class="grid md:grid-cols-2 gap-12 items-center animated-item">
                         <div class="text-center md:text-left">
                             <p class="text-md font-bold gradient-text mb-2">FEATURE 01</p>
-                            <h3 class="text-3xl font-bold text-white mb-4">リアルタイム・フロアマップ</h3>
-                            <p class="text-lg text-gray-300">「どのテーブルが空いているか」「誰がどの席についているか」「ヘルプが必要な席はどこか」が一目瞭然。裏のホワイトボードはもう必要ありません。</p>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">リアルタイム・フロアマップ</h3>
+                            <p class="text-sm sm:text-base md:text-lg text-gray-300">「どのテーブルが空いているか」「誰がどの席についているか」「ヘルプが必要な席はどこか」が一目瞭然。裏のホワイトボードはもう必要ありません。</p>
                         </div>
                         <div class="phone-mockup max-w-md mx-auto">
                              <img src="img/floor-map-screenshot.png" alt="フロアマップのスクリーンショット" class="w-full">
@@ -149,10 +203,10 @@
                     <div class="grid md:grid-cols-2 gap-12 items-center animated-item">
                         <div class="md:order-2 text-center md:text-left">
                             <p class="text-md font-bold gradient-text mb-2">FEATURE 02</p>
-                            <h3 class="text-3xl font-bold text-white mb-4">スマート・オーダーエントリー</h3>
-                            <p class="text-lg text-gray-300">オーダー入力、会計処理、ヘルプ要請もワンタップ。ミスなく、スマートで質の高い接客を実現し、顧客満足度を向上させます。</p>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">スマート・オーダーエントリー</h3>
+                            <p class="text-sm sm:text-base md:text-lg text-gray-300">オーダー入力、会計処理、ヘルプ要請もワンタップ。ミスなく、スマートで質の高い接客を実現し、顧客満足度を向上させます。</p>
                         </div>
-                         <div class="md:order-1 flex gap-4">
+                         <div class="md:order-1 flex flex-col sm:flex-row gap-4">
                             <div class="phone-mockup flex-1">
                                 <img src="img/order-entry-screen1.png" alt="オーダー画面1" class="w-full">
                             </div>
@@ -165,8 +219,8 @@
                     <div class="grid md:grid-cols-2 gap-12 items-center animated-item">
                         <div class="text-center md:text-left">
                             <p class="text-md font-bold gradient-text mb-2">FEATURE 03</p>
-                            <h3 class="text-3xl font-bold text-white mb-4">テーブル状況の可視化</h3>
-                            <p class="text-lg text-gray-300">利用時間や会計金額をリアルタイムで一覧管理。的確なタイミングでのサービス提供や、スマートな延長交渉が可能になります。</p>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">テーブル状況の可視化</h3>
+                            <p class="text-sm sm:text-base md:text-lg text-gray-300">利用時間や会計金額をリアルタイムで一覧管理。的確なタイミングでのサービス提供や、スマートな延長交渉が可能になります。</p>
                         </div>
                         <div class="phone-mockup max-w-md mx-auto">
                              <img src="img/table-list-screenshot.png" alt="テーブル一覧画面" class="w-full">
@@ -177,12 +231,12 @@
         </section>
 
         <!-- Benefits Section -->
-        <section id="benefits" class="py-24 bg-[#101010]">
+        <section id="benefits" class="py-16 md:py-20 lg:py-24 bg-[#101010]">
              <div class="container mx-auto px-6">
                 <div class="text-center max-w-3xl mx-auto">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-16 animated-item">導入で期待できる<span class="gradient-text">「３つの効果」</span></h2>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8 sm:mb-12 md:mb-16 animated-item">導入で期待できる<span class="gradient-text">「３つの効果」</span></h2>
                 </div>
-                <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 text-center">
                     <div class="bg-gray-900/50 p-8 rounded-2xl border border-gray-800 animated-item" style="transition-delay: 100ms;">
                         <h3 class="text-2xl font-bold mb-4 text-white">📈 売上向上</h3>
                         <ul class="text-gray-400">
@@ -212,10 +266,10 @@
         </section>
 
         <!-- PoC Proposal Section -->
-        <section id="poc" class="py-24">
+        <section id="poc" class="py-16 md:py-20 lg:py-24">
              <div class="container mx-auto px-6 text-center">
                 <div class="bg-gradient-to-tr from-purple-900/50 to-yellow-600/30 p-12 rounded-3xl max-w-4xl mx-auto animated-item">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">まずは<span class="gradient-text">「お試し導入」</span>から<br/>始めてみませんか？</h2>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6">まずは<span class="gradient-text">「お試し導入」</span>から<br/>始めてみませんか？</h2>
                     <div class="text-lg text-gray-300 space-y-4">
                         <p>「いきなり本格的な導入は不安...」というお声にお応えします。</p>
                         <p>まずは店舗でシステムを実際に使い、その<span class="text-yellow-300 font-bold">効果を直接ご体感</span>ください。</p>
@@ -265,6 +319,27 @@
 
         animatedItems.forEach(item => {
             observer.observe(item);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking on links
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
         });
     </script>
 </body>
