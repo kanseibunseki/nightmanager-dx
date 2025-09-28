@@ -87,6 +87,29 @@
                 border-radius: 15px;
             }
         }
+        .desktop-mockup {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .desktop-mockup-header {
+            background: #2a2a2a;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .desktop-mockup-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .desktop-mockup img {
+            width: 100%;
+            display: block;
+        }
         
         /* Mobile Menu Styles */
         .mobile-menu {
@@ -109,8 +132,84 @@
             transform: rotate(-45deg) translate(7px, -6px);
         }
     </style>
+    <style>
+        /* Video Modal Styles */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .video-modal.active {
+            display: flex;
+        }
+        .video-container {
+            position: relative;
+            width: 85%;
+            max-width: 380px;
+            max-height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (min-width: 768px) {
+            .video-container {
+                width: auto;
+                max-width: 420px;
+            }
+        }
+        .video-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .video-close:hover {
+            transform: rotate(90deg);
+        }
+        /* Prevent image dragging and selection */
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            pointer-events: none;
+        }
+        video {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        /* Prevent selection on image containers */
+        .phone-mockup, .desktop-mockup {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
 </head>
-<body class="antialiased">
+<body class="antialiased" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
     <!-- Header Navigation -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
@@ -201,7 +300,19 @@
                         <div class="text-center md:text-left">
                             <p class="text-md font-bold gradient-text mb-2">FEATURE 01</p>
                             <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">リアルタイム・フロアマップ</h3>
-                            <p class="text-sm sm:text-base md:text-lg text-gray-300">「どのテーブルが空いているか」「誰がどの席についているか」「ヘルプが必要な席はどこか」が一目瞭然。裏のホワイトボードはもう必要ありません。</p>
+                            <p class="text-sm sm:text-base md:text-lg text-gray-300 mb-6">「どのテーブルが空いているか」「誰がどの席についているか」「ヘルプが必要な席はどこか」が一目瞭然。<br class="hidden sm:block"/>ホワイトボードに集まる必要はもうありません。</p>
+                            <a href="#" class="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-purple-600 via-purple-600 to-pink-500 p-[2px] hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300">
+                                <span class="flex items-center gap-3 rounded-lg bg-black px-5 py-2.5 transition-all duration-300 group-hover:bg-opacity-70">
+                                    <span class="relative flex h-3 w-3">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                                    </span>
+                                    <span class="font-medium text-white">動画で機能を見る</span>
+                                    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                    </svg>
+                                </span>
+                            </a>
                         </div>
                         <div class="phone-mockup max-w-md mx-auto">
                              <img src="img/floor-map-screenshot.png" alt="フロアマップのスクリーンショット" class="w-full">
@@ -212,7 +323,19 @@
                         <div class="md:order-2 text-center md:text-left">
                             <p class="text-md font-bold gradient-text mb-2">FEATURE 02</p>
                             <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">スマート・オーダーエントリー</h3>
-                            <p class="text-sm sm:text-base md:text-lg text-gray-300">オーダー入力、会計処理、ヘルプ要請もワンタップ。ミスなく、スマートで質の高い接客を実現し、顧客満足度を向上させます。</p>
+                            <p class="text-sm sm:text-base md:text-lg text-gray-300 mb-6">オーダー入力、会計処理、ヘルプ要請もワンタップ。<br class="hidden sm:block"/>ミスなく、スマートで質の高い接客を実現し、顧客満足度を向上させます。</p>
+                            <a href="#" onclick="openVideoModal(event)" class="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-purple-600 via-purple-600 to-pink-500 p-[2px] hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300">
+                                <span class="flex items-center gap-3 rounded-lg bg-black px-5 py-2.5 transition-all duration-300 group-hover:bg-opacity-70">
+                                    <span class="relative flex h-3 w-3">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                                    </span>
+                                    <span class="font-medium text-white">動画で機能を見る</span>
+                                    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                    </svg>
+                                </span>
+                            </a>
                         </div>
                          <div class="md:order-1 flex flex-col sm:flex-row gap-4">
                             <div class="phone-mockup flex-1">
@@ -227,11 +350,28 @@
                     <div class="grid md:grid-cols-2 gap-12 items-center animated-item">
                         <div class="text-center md:text-left">
                             <p class="text-md font-bold gradient-text mb-2">FEATURE 03</p>
-                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">テーブル状況の可視化</h3>
-                            <p class="text-sm sm:text-base md:text-lg text-gray-300">利用時間や会計金額をリアルタイムで一覧管理。的確なタイミングでのサービス提供や、スマートな延長交渉が可能になります。</p>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">スマート受付・会計システム</h3>
+                            <p class="text-sm sm:text-base md:text-lg text-gray-300 mb-6">入店受付から会計まですべてをデジタル管理。<br class="hidden sm:block"/>お客様情報の入力、会計処理をワンストップで実現。<br class="hidden sm:block"/>会計時は明細書を即座にプリント出力し、スムーズな精算を実現します。</p>
+                            <a href="#" class="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-purple-600 via-purple-600 to-pink-500 p-[2px] hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300">
+                                <span class="flex items-center gap-3 rounded-lg bg-black px-5 py-2.5 transition-all duration-300 group-hover:bg-opacity-70">
+                                    <span class="relative flex h-3 w-3">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                                    </span>
+                                    <span class="font-medium text-white">動画で機能を見る</span>
+                                    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                    </svg>
+                                </span>
+                            </a>
                         </div>
-                        <div class="phone-mockup max-w-md mx-auto">
-                             <img src="img/table-list-screenshot.png" alt="テーブル一覧画面" class="w-full">
+                        <div class="desktop-mockup max-w-2xl mx-auto md:mx-0">
+                            <div class="desktop-mockup-header">
+                                <div class="desktop-mockup-dot bg-red-500"></div>
+                                <div class="desktop-mockup-dot bg-yellow-500"></div>
+                                <div class="desktop-mockup-dot bg-green-500"></div>
+                            </div>
+                            <img src="img/web_top.png" alt="受付・会計システム画面" class="w-full">
                         </div>
                     </div>
                 </div>
@@ -303,6 +443,17 @@
         </div>
     </footer>
     
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-container">
+            <span class="video-close" onclick="closeVideoModal()">&times;</span>
+            <video id="modalVideo" controls style="width: 100%; height: auto; max-height: 75vh; border-radius: 40px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); object-fit: contain;">
+                <source src="mov/iPhone_mov.mp4" type="video/mp4">
+                お使いのブラウザは動画タグに対応していません。
+            </video>
+        </div>
+    </div>
+    
     <script>
         // Sticky Navbar
         const navbar = document.getElementById('navbar');
@@ -348,6 +499,39 @@
                 hamburger.classList.remove('active');
                 document.body.style.overflow = '';
             });
+        });
+
+        // Video Modal Functions
+        function openVideoModal(event) {
+            event.preventDefault();
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            video.play();
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            video.pause();
+            video.currentTime = 0;
+        }
+
+        // Close modal on clicking outside the video
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('videoModal').classList.contains('active')) {
+                closeVideoModal();
+            }
         });
     </script>
 </body>
